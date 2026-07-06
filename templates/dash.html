@@ -178,12 +178,201 @@ input:focus,select:focus,textarea:focus{border-color:#58a6ff;box-shadow:0 0 0 3p
 <td style="font-family:monospace;font-size:10px;color:#4a5278">{%if k[3]%}{{k[3][:16]}}..{%else%}-{%endif%}</td>
 <td style="color:#4a5278;font-size:11px">{{k[5] if k[5] else '-'}}</td>
 <td style="font-size:11px">{{k[6][:10] if k[6] else '-'}}</td>
-<td style="font-size:11px">{%if k[7]==1%}<span style="color:#f85149">BANNED</span>{%elif k[8]%}{{k[8][:10]}}{%else%}∞{%endif%}</td>
+<td style="font-size:11px">{%if k[7]==1%}<span style="color:#f85149">BANNED</span>{%elif k[6]%}{{k[6][:10]}}{%else%}∞{%endif%}</td>
 <td style="font-size:11px;color:#4a5278">{{k[9] if k[9] else ''}}</td>
 <td>
 <button class="btn btn-xs btn-o" onclick="info('{{k[0]}}')">ℹ️</button>
-{%if k[7]==1%}
-<button class="btn btn-xs btn-g" onclick="unban('{{k[0]}}')">🔓</button>
-{%else%}
-<button class="btn btn-xs btn-r" onclick="ban('{{k[0]}}')">⛔</button>
-{%endif%
+{%if k[7]==1%}<button class="btn btn-xs btn-g" onclick="ub('{{k[0]}}')">🔓</button>
+{%else%}<button class="btn btn-xs btn-r" onclick="bn('{{k[0]}}')">⛔</button>{%endif%}
+<button class="btn btn-xs btn-o" onclick="rs('{{k[0]}}')">🔄</button>
+<button class="btn btn-xs btn-r" onclick="dl('{{k[0]}}')">🗑️</button>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="t-gen" class="tc">
+<div class="cdb">
+<div class="fr">
+<div class="fg"><label>TYPE</label><select id="gt"><option value="DAY">DAY</option><option value="WEEK">WEEK</option><option value="MONTH" selected>MONTH</option><option value="LIFE">LIFE</option></select></div>
+<div class="fg"><label>COUNT</label><input type="number" id="gc" value="10" min="1" max="500"></div>
+<div class="fg"><label>PREFIX</label><input type="text" id="gp" value="AQUA" placeholder="AQUA"></div>
+</div>
+<button class="btn btn-p" onclick="gen()" style="width:100%;justify-content:center;padding:12px">⚡ GENERATE</button>
+<div id="kw" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+<span style="color:#4a5278;font-size:12px">Generated keys:</span>
+<button class="btn btn-xs btn-o" onclick="ca()">📋 COPY ALL</button>
+</div>
+<div class="ko" id="ko"></div>
+</div>
+</div>
+</div>
+
+<div id="t-logs" class="tc">
+<div class="cdb">
+<div class="tw" style="max-height:500px;overflow-y:auto">
+<table>
+<thead><tr><th>TIME</th><th>ACTION</th><th>KEY</th><th>DEVICE</th><th>IP</th><th>INFO</th></tr></thead>
+<tbody>
+{% for l in logs %}
+<tr>
+<td style="color:#4a5278;font-size:11px;white-space:nowrap">{{l[1][:19]}}</td>
+<td>{{l[2]}}</td>
+<td class="kc">{{l[3][:16] if l[3] else '-'}}..</td>
+<td style="font-family:monospace;font-size:10px;color:#4a5278">{{l[4][:12] if l[4] else '-'}}..</td>
+<td style="color:#4a5278;font-size:11px">{{l[5]}}</td>
+<td style="font-size:11px;color:#4a5278">{{l[6]}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="ov" id="ov">
+<div class="md">
+<button class="md-x" onclick="cm()">×</button>
+<h2 id="mt">ACTION</h2>
+<div id="mb"></div>
+<div class="ma" id="ma">
+<button class="btn btn-o" onclick="cm()">CANCEL</button>
+<button class="btn btn-r" id="mc">CONFIRM</button>
+</div>
+</div>
+</div>
+
+<div class="ts" id="ts"></div>
+
+<script>
+function sw(n,el){
+document.querySelectorAll('.tp').forEach(t=>t.classList.remove('act'))
+document.querySelectorAll('.tc').forEach(t=>t.classList.remove('act'))
+el.classList.add('act')
+document.getElementById('t-'+n).classList.add('act')
+}
+
+function fk(){
+const s=document.getElementById('ks').value.toLowerCase()
+const t=document.getElementById('ft').value
+const st=document.getElementById('fs').value
+let c=0
+document.querySelectorAll('.kr').forEach(r=>{
+const k=r.dataset.key.toLowerCase()
+const rt=r.dataset.type
+const u=parseInt(r.dataset.used)
+const b=parseInt(r.dataset.banned)
+let sh=true
+if(s&&!k.includes(s))sh=false
+if(t!='all'&&rt!=t)sh=false
+if(st=='used'&&!u)sh=false
+if(st=='free'&&u)sh=false
+if(st=='banned'&&!b)sh=false
+r.style.display=sh?'':'none'
+if(sh)c++
+})
+document.getElementById('kc').textContent=c+' keys'
+}
+
+function gen(){
+const t=document.getElementById('gt').value
+const c=parseInt(document.getElementById('gc').value)||10
+const p=document.getElementById('gp').value.toUpperCase()||'AQUA'
+fetch('/api/gen',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:t,count:c,prefix:p})})
+.then(r=>r.json()).then(d=>{
+if(d.ok){
+document.getElementById('kw').style.display='block'
+document.getElementById('ko').innerHTML=d.keys.map(k=>`<div class="kl"><span>${k}</span><button class="cb" onclick="cp('${k}')">📋</button></div>`).join('')
+toast(`${d.count} ${t} keys generated`,'s')
+setTimeout(()=>location.reload(),2000)
+}
+})
+}
+
+function cp(k){navigator.clipboard.writeText(k).then(()=>toast('copied','i'))}
+function ca(){
+const k=document.querySelectorAll('#ko .kl span')
+navigator.clipboard.writeText(Array.from(k).map(s=>s.textContent).join('\n'))
+toast(`${k.length} keys copied`,'s')
+}
+
+function info(k){
+fetch('/api/logs').then(r=>r.json()).then(logs=>{
+const kl=logs.filter(l=>l.key===k)
+const h=kl.slice(0,10).map(l=>`<div style="font-size:11px;color:#4a5278;padding:3px 0;border-bottom:1px solid #141a33"><span style="color:#7a84a8">${l.time.slice(0,19)}</span> — ${l.action}${l.info?' <span style="color:#4a5278">| '+l.info+'</span>':''}</div>`).join('')||'<div style="color:#4a5278">no logs</div>'
+document.getElementById('mt').textContent='🔑 '+k.slice(0,20)+'..'
+document.getElementById('mb').innerHTML=`<div style="max-height:280px;overflow-y:auto;background:#0a0c16;border-radius:7px;padding:12px">${h}</div>`
+document.getElementById('mc').textContent='CLOSE'
+document.getElementById('mc').className='btn btn-p'
+document.getElementById('mc').onclick=cm
+document.getElementById('ov').classList.add('act')
+})
+}
+
+function bn(k){
+document.getElementById('mt').textContent='⛔ BAN KEY'
+document.getElementById('mb').innerHTML=`<p style="margin-bottom:12px">Ban key <code style="color:#f85149">${k.slice(0,20)}..</code>?</p><div class="fg"><label>REASON</label><input type="text" id="br" value="ToS Violation"></div>`
+document.getElementById('mc').textContent='⛔ BAN'
+document.getElementById('mc').className='btn btn-r'
+document.getElementById('mc').onclick=()=>{
+const r=document.getElementById('br').value
+fetch('/api/ban',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k,reason:r})})
+.then(r=>r.json()).then(d=>{if(d.ok){toast('banned: '+k.slice(0,16)+'..','e');location.reload()}})
+cm()
+}
+document.getElementById('ov').classList.add('act')
+}
+
+function ub(k){
+fetch('/api/unban',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k})})
+.then(r=>r.json()).then(d=>{if(d.ok){toast('unbanned: '+k.slice(0,16)+'..','s');location.reload()}})
+}
+
+function rs(k){
+document.getElementById('mt').textContent='🔄 RESET KEY'
+document.getElementById('mb').innerHTML=`<p>Reset key <code style="color:#58a6ff">${k.slice(0,20)}..</code>?</p><p style="color:#f0883e;font-size:12px">Device will be removed, key becomes free.</p>`
+document.getElementById('mc').textContent='🔄 RESET'
+document.getElementById('mc').className='btn btn-r'
+document.getElementById('mc').onclick=()=>{
+fetch('/api/reset',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k})})
+.then(r=>r.json()).then(d=>{if(d.ok){toast('reset: '+k.slice(0,16)+'..','s');location.reload()}})
+cm()
+}
+document.getElementById('ov').classList.add('act')
+}
+
+function dl(k){
+document.getElementById('mt').textContent='🗑️ DELETE KEY'
+document.getElementById('mb').innerHTML=`<p style="color:#f85149">PERMANENTLY delete key <code style="color:#f85149">${k.slice(0,20)}..</code>?</p><p style="color:#4a5278;font-size:12px">This can't be undone.</p>`
+document.getElementById('mc').textContent='🗑️ DELETE'
+document.getElementById('mc').className='btn btn-r'
+document.getElementById('mc').onclick=()=>{
+fetch('/api/del',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k})})
+.then(r=>r.json()).then(d=>{if(d.ok){toast('deleted: '+k.slice(0,16)+'..','e');location.reload()}})
+cm()
+}
+document.getElementById('ov').classList.add('act')
+}
+
+function cm(){document.getElementById('ov').classList.remove('act')}
+document.getElementById('ov').addEventListener('click',e=>{if(e.target===e.currentTarget)cm()})
+
+function toast(m,t='i'){
+const c=document.getElementById('ts')
+const e=document.createElement('div')
+e.className='ts-item '+t
+e.textContent=m
+c.appendChild(e)
+setTimeout(()=>{e.style.opacity='0';e.style.transform='translateX(40px)';e.style.transition='.3s';setTimeout(()=>e.remove(),300)},3500)
+}
+</script>
+</body>
+</html>
