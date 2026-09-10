@@ -1,11 +1,12 @@
 {
   "manifest_version": 3,
   "name": "TWILIGHT Discord Toolkit — Ultimate Edition",
-  "version": "4.0.0",
-  "description": "TWILIGHT Discord companion with an app-like window, Discord chat discovery, TWEЯOR Settings, themes, backgrounds, avatars and sounds.",
+  "version": "5.0.0",
+  "description": "TWILIGHT Discord companion with a standalone app window and persistent TERROR Settings.",
   "action": {"default_title": "Open TWILIGHT Ultimate"},
   "permissions": ["storage", "tabs", "windows"],
   "host_permissions": ["https://discord.com/*", "https://discordapp.com/*"],
   "content_scripts": [{"matches": ["https://discord.com/*", "https://discordapp.com/*"], "js": ["content.js"], "run_at": "document_idle"}],
-  "background": {"service_worker": "background.js"}
+  "background": {"service_worker": "background.js"},
+  "options_ui": {"page": "settings.html", "open_in_tab": true}
 }
