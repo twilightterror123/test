@@ -1,65 +1,27 @@
 <!doctype html>
 <html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TWILIGHT Ultimate Edition</title>
-<link rel="stylesheet" href="popup.css">
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TWILIGHT Ultimate Edition</title><link rel="stylesheet" href="popup.css"></head>
 <body>
 <aside>
-  <div class="brand"><h1>TWILIGHT</h1><small>ULTIMATE EDITION</small></div>
+  <div class="brand"><h1>TWILIGHT</h1><small>ULTIMATE EDITION 3.0</small></div>
   <button class="active" data-tab="dashboard">◈ Dashboard</button>
-  <button data-tab="chats">▣ Chats</button>
-  <button data-tab="servers">⌂ Servers</button>
-  <button data-tab="search">⌕ Search</button>
-  <button data-tab="analytics">◫ Analytics</button>
-  <button data-tab="notes">✎ Notes</button>
-  <button data-tab="customize">✦ Customize</button>
-  <button data-tab="settings">⚙ Settings</button>
-  <div class="sidefoot">LOCAL • v2.0 ULTIMATE</div>
+  <button data-tab="chats">▣ Chats</button><button data-tab="servers">⌂ Servers</button><button data-tab="search">⌕ Search</button>
+  <button data-tab="analytics">◫ Analytics</button><button data-tab="notes">✎ Notes</button><button data-tab="customize">✦ Customize</button><button data-tab="settings">⚙ Settings</button>
+  <div class="sidefoot">LOCAL • PERSISTENT • v3.0</div>
 </aside>
 <main>
-<header>
-  <div><span>TWILIGHT DISCORD TOOLKIT</span><h2 id="title">Dashboard</h2></div>
-  <div class="status">● LOCAL MODE</div>
-</header>
-
-<section id="dashboard" class="tab">
-  <div class="grid">
-    <article><b>Messages</b><strong>—</strong><small>Official Discord integration</small></article>
-    <article><b>Servers</b><strong>—</strong><small>Authorized data only</small></article>
-    <article><b>Members</b><strong>—</strong><small>No credential extraction</small></article>
-    <article><b>Notes</b><strong id="noteCount">0</strong><small>Stored locally</small></article>
-  </div>
-  <div class="hero"><div class="heroGlow"></div><h3>TWILIGHT ULTIMATE</h3><p>Dein persönliches Discord-Control-Center: Look, Sounds, Hintergrund, Avatar, Layout und lokale Tools.</p><div class="quick"><button id="openCustomize">✦ Customize</button><button id="addNote">＋ Quick note</button></div></div>
-</section>
-
-<section id="chats" class="tab hidden"><h3>Chats</h3><input placeholder="Search channels…"><div class="empty">Connect an official Discord integration to display authorized channels.</div></section>
-<section id="servers" class="tab hidden"><h3>Servers</h3><div class="cards"><div>🏠 Server overview</div><div>👥 Member overview</div><div>📊 Server analytics</div></div></section>
-<section id="search" class="tab hidden"><h3>Message Search</h3><input id="searchBox" placeholder="Search your authorized Discord data…"><div id="results" class="empty">Nothing searched yet.</div></section>
-<section id="analytics" class="tab hidden"><h3>Analytics</h3><div class="cards"><div>Messages/day<br><strong>—</strong></div><div>Active channels<br><strong>—</strong></div><div>Members<br><strong>—</strong></div></div></section>
-<section id="notes" class="tab hidden"><h3>Local Notes</h3><textarea id="notesBox" placeholder="Write notes here…"></textarea><button id="save">Save notes</button></section>
-
-<section id="customize" class="tab hidden">
-  <h3>✦ Discord Customize</h3>
-  <p class="muted">Alles wird lokal gespeichert. Bild- und Sounddateien verlassen dein Gerät nicht.</p>
-  <div class="settingsGrid">
-    <div class="settingCard"><label>Profilbild / Avatar</label><input id="avatarFile" type="file" accept="image/*"><div class="previewRow"><img id="avatarPreview" class="avatar" alt="Avatar preview"><span id="avatarName">Kein Bild gewählt</span></div></div>
-    <div class="settingCard"><label>Eigener Hintergrund</label><input id="backgroundFile" type="file" accept="image/*"><div id="backgroundPreview" class="bgPreview">Kein Hintergrund gewählt</div></div>
-    <div class="settingCard"><label>Anruf-Sound</label><input id="callSound" type="file" accept="audio/*"><span id="callName" class="fileName">Standard</span><button class="smallBtn" id="testCall">▶ Test</button></div>
-    <div class="settingCard"><label>Nachrichten-Sound</label><input id="messageSound" type="file" accept="audio/*"><span id="messageName" class="fileName">Standard</span><button class="smallBtn" id="testMessage">▶ Test</button></div>
-  </div>
-  <div class="settingsGrid">
-    <div class="settingCard"><label>Akzentfarbe</label><input id="accent" type="color" value="#00e5ff"><div class="rangeLine">Glow <input id="glow" type="range" min="0" max="100" value="55"></div></div>
-    <div class="settingCard"><label>Discord-Look</label><select id="look"><option value="neon">TWILIGHT Neon</option><option value="midnight">Midnight</option><option value="glass">Glass</option><option value="minimal">Minimal Clean</option></select><label class="check"><input id="compact" type="checkbox"> Compact Mode</label><label class="check"><input id="blur" type="checkbox" checked> Background Blur</label></div>
-  </div>
-  <div class="buttonRow"><button id="saveCustomize">✓ Save & Apply</button><button id="resetCustomize" class="danger">Reset Customize</button></div>
-  <p id="customStatus" class="safe"></p>
-</section>
-
-<section id="settings" class="tab hidden"><h3>⚙ Settings</h3><label>Theme <select id="theme"><option>TWILIGHT Neon</option><option>Dark</option></select></label><label class="check"><input id="discordEffects" type="checkbox" checked> Apply visual customization on discord.com</label><p class="safe">🔐 Sicherheit: Die Erweiterung liest, speichert oder zeigt keine Discord-Session-Tokens/Passwörter. Für Account-Daten nur offizielle Discord OAuth2/API-Flows verwenden.</p></section>
-</main>
-<script src="popup.js"></script>
-</body>
-</html>
+<header><div><span>TWILIGHT DISCORD TOOLKIT</span><h2 id="title">Dashboard</h2></div><div class="status">● ACTIVE</div></header>
+<section id="dashboard" class="tab"><div class="grid"><article><b>Chats</b><strong id="chatCount">0</strong><small>visible Discord channels</small></article><article><b>Servers</b><strong id="serverCount">0</strong><small>detected from Discord</small></article><article><b>Customization</b><strong>ON</strong><small>local settings</small></article><article><b>Notes</b><strong id="noteCount">0</strong><small>stored locally</small></article></div><div class="hero"><div class="heroGlow"></div><h3>TWILIGHT ULTIMATE</h3><p>Clean Discord companion mit persistentem Design, Hintergrund, Avatar-Darstellung, Sounds und TWEЯOR Settings direkt in Discord.</p><div class="quick"><button id="openCustomize">✦ Customize</button><button id="addNote">＋ Quick note</button></div></div></section>
+<section id="chats" class="tab hidden"><h3>▣ Chats</h3><input id="chatFilter" placeholder="Chat oder Channel suchen…"><div id="chatList" class="cards"><div class="empty">Öffne Discord und diese Liste wird aus den sichtbaren Channel-Links aufgebaut.</div></div></section>
+<section id="servers" class="tab hidden"><h3>⌂ Servers</h3><div id="serverList" class="cards"><div class="empty">Keine Server erkannt.</div></div></section>
+<section id="search" class="tab hidden"><h3>⌕ Message Search</h3><input id="searchBox" placeholder="In sichtbaren/autorisierten Discord-Daten suchen…"><div id="results" class="empty">Noch keine Suche.</div></section>
+<section id="analytics" class="tab hidden"><h3>◫ Analytics</h3><div class="cards"><div>Visible Chats<br><strong id="aChats">0</strong></div><div>Visible Servers<br><strong id="aServers">0</strong></div><div>Local Notes<br><strong id="aNotes">0</strong></div></div><p class="muted">Die Erweiterung analysiert nur Daten, die sie über die sichtbare Discord-Oberfläche bzw. erlaubte Integrationen erhält.</p></section>
+<section id="notes" class="tab hidden"><h3>✎ Local Notes</h3><textarea id="notesBox" placeholder="Notizen…"></textarea><button id="save">Save notes</button></section>
+<section id="customize" class="tab hidden"><h3>✦ TWILIGHT Customize</h3><p class="muted">Deine Auswahl bleibt lokal gespeichert und wird beim nächsten Discord-Start wieder angewendet.</p><div class="settingsGrid">
+<div class="settingCard"><label>👤 Profilbild-Darstellung</label><input id="avatarFile" type="file" accept="image/*"><div class="previewRow"><img id="avatarPreview" class="avatar"><span id="avatarName">Kein Bild</span></div></div>
+<div class="settingCard"><label>🌌 Hintergrund</label><input id="backgroundFile" type="file" accept="image/*"><div id="backgroundPreview" class="bgPreview">Kein Hintergrund</div></div>
+<div class="settingCard"><label>📞 Anruf-Sound</label><input id="callSound" type="file" accept="audio/*"><span id="callName" class="fileName">Standard</span><button class="smallBtn" id="testCall">▶ Test</button></div>
+<div class="settingCard"><label>🔔 Notification-Sound</label><input id="messageSound" type="file" accept="audio/*"><span id="messageName" class="fileName">Standard</span><button class="smallBtn" id="testMessage">▶ Test</button></div>
+</div><div class="settingsGrid"><div class="settingCard"><label>🎨 Akzentfarbe</label><input id="accent" type="color" value="#00e5ff"><div class="rangeLine">Glow <input id="glow" type="range" min="0" max="100" value="55"></div></div><div class="settingCard"><label>🪟 Look</label><select id="look"><option value="neon">TWILIGHT Neon</option><option value="midnight">Midnight</option><option value="glass">Glass</option><option value="minimal">Minimal Clean</option></select><label class="check"><input id="compact" type="checkbox"> Compact Mode</label><label class="check"><input id="blur" type="checkbox" checked> Background Blur</label></div></div><div class="buttonRow"><button id="saveCustomize">✓ Save & Apply</button><button id="resetCustomize" class="danger">Reset</button></div><p id="customStatus" class="safe"></p></section>
+<section id="settings" class="tab hidden"><h3>⚙ Settings</h3><label class="check"><input id="discordEffects" type="checkbox" checked> Discord-Customization aktiv</label><p class="safe">✦ TWEЯOR Settings wird direkt in Discords Einstellungsbereich eingeblendet. Medien und Einstellungen bleiben lokal. Keine Session-Tokens oder Passwörter.</p></section>
+</main><script src="popup.js"></script></body></html>
